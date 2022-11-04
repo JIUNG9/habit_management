@@ -1,0 +1,17 @@
+
+V
+java:S1610";Convert the abstract class "ApiSubError" into an interface.(‘ß«˜ıÿÿÿÿ
+]
+java:S2094"BRemove this empty class, write its code or make it an "interface".(‘ß«˜ıÿÿÿÿ
+V
+java:S1610";Convert the abstract class "ApiSubError" into an interface.(‘ß«˜ıÿÿÿÿ
+]
+java:S2094"BRemove this empty class, write its code or make it an "interface".(‘ß«˜ıÿÿÿÿ
+a
+java:S1128"FRemove this unused import 'org.springframework.validation.FieldError'.(ÖŒéıÿÿÿÿ
+h
+java:S1128"FRemove this unused import 'org.springframework.validation.FieldError'.(ÖŒéıÿÿÿÿ8ÜÀ”»0
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ÜÀ”»0
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ

@@ -1,0 +1,11 @@
+
+S
+java:S1854$"=Remove this useless assignment to local variable "timestamp".(Ğ¿ëÆ
+D
+java:S1481$".Remove this unused "timestamp" local variable.(Ğ¿ëÆ
+{
+java:S1128"`Remove this unused import 'org.springframework.security.authentication.BadCredentialsException'.(Òòîƒÿÿÿÿÿ
+ˆ
+java:S1128"rRemove this unused import 'org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler'.(ÇëÌí
+E
+java:S1128"/Remove this unused import 'java.util.Calendar'.(ÿÛö´

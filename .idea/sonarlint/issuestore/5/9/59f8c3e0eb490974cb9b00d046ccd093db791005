@@ -1,0 +1,24 @@
+
+W
+java:S3457u"AFormat specifiers should be used instead of string concatenation.(À¸­¬
+<	java:S131v""Add a default case to this switch.(óÁ²ùÿÿÿÿ
+]
+java:S3457“"AFormat specifiers should be used instead of string concatenation.(Úµ¶®ùÿÿÿÿ
+]
+java:S3457˜"AFormat specifiers should be used instead of string concatenation.(—‚ÎŸüÿÿÿÿ
+X
+java:S3457­"AFormat specifiers should be used instead of string concatenation.(À¸­¬
+W
+java:S1612¹";Replace this lambda with method reference 'User::toString'.(†þ´ÿÿÿÿÿ
+a
+java:S1192r"FDefine a constant instead of duplicating this literal "email" 4 times.(ŽæþÒüÿÿÿÿ
+f
+java:S1301v"KReplace this "switch" statement by "if" statements to increase readability.(óÁ²ùÿÿÿÿ
+r
+java:S2629u"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(À¸­¬
+S
+java:S2629“"7Use the built-in formatting to construct this argument.(Úµ¶®ùÿÿÿÿ
+S
+java:S2629˜"7Use the built-in formatting to construct this argument.(—‚ÎŸüÿÿÿÿ
+s
+java:S2629­"\Invoke method(s) only conditionally. Use the built-in formatting to construct this argument.(À¸­¬
