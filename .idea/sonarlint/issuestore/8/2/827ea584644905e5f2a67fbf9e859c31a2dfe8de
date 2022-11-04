@@ -1,7 +1,0 @@
-
-o	java:S115!"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(Ï¶Ğ¤
-o	java:S115""ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¬¢í¤
-R
-java:S2387#"7"logger" is the name of a field in "GenericFilterBean".(‚÷ªşÿÿÿÿ
-\
-java:S1126A"AReplace this if-then-else statement by a single return statement.(©ÁÁ…øÿÿÿÿ

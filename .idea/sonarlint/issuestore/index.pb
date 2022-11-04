@@ -35,8 +35,6 @@ _
 /src/main/java/com/module/error/ApiSubError.java,d/6/d6281a45ecace216142014a83a5c8077d9425ee9
 a
 1src/main/java/com/module/error/UserErrorCode.java,7/9/7945e1d092a5b011dab72b0ecc6ac788965aa2e4
-W
-'src/main/java/com/module/user/Role.java,8/5/85b50e3ff0ba23fef3e51a4910260beb8e9c082f
 X
 (src/main/java/com/module/group/Chat.java,5/3/539d52ef99fe5759f9d8011c3197447ce4c924bc
 ]
@@ -79,9 +77,5 @@ e
 5src/main/java/com/module/security/SecurityConfig.java,2/6/26a75a5843f2306810fb51592bb984a81576caef
 W
 'src/main/java/com/module/user/User.java,9/7/97904a16114f611c9a470bf4948100af03014d86
-w
-Gsrc/main/java/com/module/filter/CustomAuthenticationFailureHandler.java,3/2/32f3110f87f0a13bb6cf235b2c05954e196a9a96
-e
-5src/main/java/com/module/filter/JwtRequestFilter.java,8/2/827ea584644905e5f2a67fbf9e859c31a2dfe8de
 h
 8src/main/java/com/module/error/UserExceptionHandler.java,5/6/56c7aa53a8b24ecaa746fdeab571c15f1fe65fdf
