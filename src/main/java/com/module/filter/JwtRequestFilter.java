@@ -52,7 +52,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             httpServletRequest.setAttribute("email", email);
 
         } else {
-            httpServletResponse.sendError(HttpStatus.BAD_REQUEST.value(), "token is not  valid");
+            httpServletResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "token is not  valid");
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);

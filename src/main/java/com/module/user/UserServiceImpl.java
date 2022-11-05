@@ -23,10 +23,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Optional<User> signUp(User user) {
+    public User signUp(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return ofNullable(userRepository.save(user));
+        return userRepository.save(user);
     }
+
 
     @Override
     public Optional<User> checkEmailIsDuplicated(String email) {
@@ -34,19 +35,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> deleteUser(String email) {
-        User user = null;
-        if (userRepository.getUserByEmail(email) != null) {
-            user = userRepository.getUserByEmail(email);
-            userRepository.delete(user);
-        }
-        return ofNullable(user);
+    public void deleteUser(String email) {
+        Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(IllegalArgumentException::new);
+        userRepository.delete(userRepository.getUserByEmail(email));
     }
-
-
     @Override
-    public boolean
-    login(String email, String password) {
+    public boolean login(String email, String password) {
+
         if (userRepository.getUserByEmail(email) != null) {
             if (bCryptPasswordEncoder.matches(password, userRepository.getUserByEmail(email).getPassword())) {
                 return true;
@@ -57,18 +52,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+        return Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(IllegalAccessError::new);
     }
 
 
     @Override
     public User updateUser(User user) {
-        return userRepository.save(user);
+        return Optional.ofNullable(userRepository.save(user)).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
     public List<User> getAllUser() {
-        return userRepository.findAll();
+        return Optional.ofNullable(userRepository.findAll()).orElseThrow(IllegalArgumentException::new);
     }
 
 

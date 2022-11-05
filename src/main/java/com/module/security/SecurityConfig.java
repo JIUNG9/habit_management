@@ -4,6 +4,7 @@ import com.module.filter.*;
 import com.module.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -13,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,7 +30,6 @@ public class SecurityConfig {
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 
     @Bean
@@ -45,27 +47,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(JwtAuthorizationFilter jwtAuthorizationFilter, JwtRequestFilter jwtRequestFilter,HttpSecurity http) throws Exception {
-//
+
         http.csrf().disable().httpBasic().and().logout().disable().formLogin().disable().authorizeRequests().
                         antMatchers("/api/user/save").permitAll().
-                        antMatchers("api/user/**/*").hasAnyRole("USER", "ADMIN").
+                        antMatchers("/api/logout").permitAll().
+                        antMatchers("/api/user/**/*").hasAnyRole("USER", "ADMIN").
                         antMatchers("/api/admin/**/*").hasRole("ADMIN").
                         antMatchers("/api/login").hasAnyRole("ADMIN","USER").
                         antMatchers("/api/logout").permitAll().
                         anyRequest().authenticated();
-        http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler()).authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterAt(jwtAuthorizationFilter,UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-    return http.build();
+        return http.build();
 
     }
-    @Bean
-    public CustomAuthenticationFailureHandler authenticationFailureHandler(){
-        return new CustomAuthenticationFailureHandler();
-    }
+
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {

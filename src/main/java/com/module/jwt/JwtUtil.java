@@ -62,8 +62,11 @@ public class JwtUtil {
     }
 
     public boolean invalidateRelatedTokens(HttpServletRequest httpServletRequest) {
+
+        if(httpServletRequest.getAttribute("email")!=null){
         if (RedisUtil.INSTANCE.srem(REDIS_SET_ACTIVE_SUBJECTS, (String) httpServletRequest.getAttribute("email"))) {
             return true;
+        }
         }
         return false;
 

@@ -65,12 +65,12 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(memberLogin.getEmail(), memberLogin.getPassword());
-//        Authentication authentication = authenticationManager.authenticate(authenticationToken);
-        SecurityContextHolder.setContext(new SecurityContextImpl(authenticationToken));
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+
 
         request.setAttribute("email",memberLogin.getEmail());
 
-        return authenticationToken;
+        return authentication;
     }
 
     @Override

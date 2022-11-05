@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
 
-    Optional<User> signUp(User user);
+    User signUp(User user);
     Optional<User> checkEmailIsDuplicated(String email);
-    Optional<User> deleteUser(String email);
+    void deleteUser(String email);
     boolean login(String email,String password);
     User findUserByEmail(String email);
     User updateUser(User user);

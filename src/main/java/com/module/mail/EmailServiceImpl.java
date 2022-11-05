@@ -57,17 +57,13 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    public Optional<EmailToken> save(EmailToken emailToken) {
-        return Optional.ofNullable(emailRepo.save(emailToken));
+    public EmailToken save(EmailToken emailToken) {
+        return Optional.ofNullable(emailRepo.save(emailToken)).orElseThrow(IllegalArgumentException::new);
     }
 
 
-
-
-
-
     public EmailToken findByConfirmationToken(String confirmationToken){
-        return emailRepo.findByConfirmationToken(confirmationToken);
+        return Optional.ofNullable(emailRepo.findByConfirmationToken(confirmationToken)).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
