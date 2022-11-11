@@ -36,7 +36,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
 
-    public final ListPath<com.module.group.Room, com.module.group.QRoom> roomList = this.<com.module.group.Room, com.module.group.QRoom>createList("roomList", com.module.group.Room.class, com.module.group.QRoom.class, PathInits.DIRECT2);
+    public final ListPath<com.module.group.UserGroup, com.module.group.QUserGroup> userGroup = this.<com.module.group.UserGroup, com.module.group.QUserGroup>createList("userGroup", com.module.group.UserGroup.class, com.module.group.QUserGroup.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> warningCount = createNumber("warningCount", Integer.class);
 

@@ -1,7 +1,7 @@
 
 logging:
   level:
-    root: INFO
+    root: info
 spring:
   messages:
     basename: errors
@@ -15,7 +15,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -23,7 +23,7 @@ spring:
 
   mail:
     smtp:
-      auth: password
+      auth: update
       ssl: true
       starttls:
         enable: true

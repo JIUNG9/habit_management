@@ -1,7 +1,9 @@
 package com.module.user;
 
 import com.module.board.Article;
-import com.module.group.Room;
+import com.module.chat.Room;
+import com.module.group.Group;
+import com.module.group.UserGroup;
 import com.module.habit.HabitStatics;
 import com.module.mail.EmailToken;
 import lombok.*;
@@ -28,7 +30,7 @@ public class User implements UserDetails
     @Column(length = 128, nullable = false)
     private String email;
 
-    @Column(length = 64, nullable = false)
+    @Column(nullable = false, length = 64)
     private String password;
 
     @Column(name = "name", length = 45, nullable = false)
@@ -41,17 +43,18 @@ public class User implements UserDetails
     @Column(name ="warning_count")
     private int warningCount;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<HabitStatics> habitStaticsList = new java.util.ArrayList<>();
-
     @OneToMany(mappedBy = "user")
-    private List<Room> roomList;
+    private List<UserGroup> userGroup;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Article> articleList = new java.util.ArrayList<>();
+    private List<HabitStatics> habitStaticsList;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<EmailToken> emailTokenList = new java.util.ArrayList<>();
+    private List<Article> articleList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<EmailToken> emailTokenList;
 
 
     @Override
@@ -75,12 +78,6 @@ public class User implements UserDetails
         return this.name;
     }
 
-//    @Override
-//    public String getPassword(){
-//        return this.password;
-//        User user = new User();
-//        user.getPassword();
-//    }
     @Override
     public boolean isAccountNonExpired() {
         return true;

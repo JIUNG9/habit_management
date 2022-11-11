@@ -14,7 +14,4 @@ public enum Role {
     public String withRolePrefix(){
         return "ROLE_"+role;
     }
-    public String withoutRolePrefix() {
-        return role;
-    }
 }

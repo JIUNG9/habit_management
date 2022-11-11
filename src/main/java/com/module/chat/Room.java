@@ -1,7 +1,11 @@
-package com.module.group;
+package com.module.chat;
 
+import com.module.group.Group;
+import com.module.group.UserGroup;
 import com.module.user.User;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -27,7 +31,10 @@ public class Room {
     private Chat chat;
 
 
-
+    //update the OneToOne
+    @OneToOne(orphanRemoval = true)
+    @JoinTable(name="id")
+    private Group group;
 
 
 }

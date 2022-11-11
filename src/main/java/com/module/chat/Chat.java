@@ -1,8 +1,8 @@
-package com.module.group;
+package com.module.chat;
 
-import com.module.user.User;
-import lombok.*;
-import org.hibernate.annotations.Target;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

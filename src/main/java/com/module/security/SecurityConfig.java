@@ -53,6 +53,8 @@ public class SecurityConfig {
                         antMatchers("/api/logout").permitAll().
                         antMatchers("/api/user/**/*").hasAnyRole("USER", "ADMIN").
                         antMatchers("/api/admin/**/*").hasRole("ADMIN").
+                        antMatchers("/api/group/admin/**/*").hasRole("GROUP_ADMIN").
+
                         antMatchers("/api/login").hasAnyRole("ADMIN","USER").
                         antMatchers("/api/logout").permitAll().
                         anyRequest().authenticated();

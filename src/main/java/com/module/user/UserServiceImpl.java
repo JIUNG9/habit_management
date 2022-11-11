@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(String email) {
-        Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(IllegalArgumentException::new);
+        Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(EntityNotFoundException::new);
         userRepository.delete(userRepository.getUserByEmail(email));
     }
     @Override
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(IllegalAccessError::new);
+        return Optional.ofNullable(userRepository.getUserByEmail(email)).orElseThrow(EntityNotFoundException::new);
     }
 
 
@@ -63,12 +64,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUser() {
-        return Optional.ofNullable(userRepository.findAll()).orElseThrow(IllegalArgumentException::new);
+        return Optional.ofNullable(userRepository.findAll()).orElseThrow(EntityNotFoundException::new);
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
 
         if(userRepository.getUserByEmail(email)!=null){
             return userRepository.getUserByEmail(email);

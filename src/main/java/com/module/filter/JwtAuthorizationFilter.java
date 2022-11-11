@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
     private final AuthenticationManager authenticationManager;
     private final UserServiceImpl userDetailsService;
 
-    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationManager authenticationManager, UserServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public JwtAuthorizationFilter(JwtUtil jwtUtil, AuthenticationManager authenticationManager, UserServiceImpl userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
@@ -88,7 +88,6 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
                                               HttpServletResponse response,
                                               AuthenticationException failed)
             throws IOException, ServletException {
-
         setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler());
         getFailureHandler().onAuthenticationFailure(request,response,failed);
     }
