@@ -62,14 +62,12 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
         }
 
         log.info("member : {}", memberLogin);
-
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(memberLogin.getEmail(), memberLogin.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-
         request.setAttribute("email",memberLogin.getEmail());
-
+        logger.info("request param: "+ memberLogin.getEmail());
         return authentication;
     }
 
@@ -78,9 +76,11 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
                                          Authentication authResult) throws IOException, ServletException {
 
         String jwtToken = jwtUtil.generateToken((String) request.getAttribute("email"));
-
+        logger.info("token is generated, and login succeeded");
         Cookie cookie = CookieUtil.create("jwtToken", jwtToken, -1, "localhost");
         response.addCookie(cookie);
+
+
     }
 
     @Override

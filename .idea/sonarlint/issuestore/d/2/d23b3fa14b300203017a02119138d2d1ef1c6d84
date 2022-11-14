@@ -1,10 +1,5 @@
 
-V	java:S125"<This block of commented-out lines of code should be removed.(¨Â¹’ùÿÿÿÿ
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ï Àc8‡²êšÇ0
 @
-java:S3457"%String contains no format specifiers.(åÅı¼ùÿÿÿÿ
-S
-java:S1128"1Remove this unused import 'com.module.user.User'.(²ì™†ÿÿÿÿÿ8Î´»”Ã0
-]
-java:S1128";Remove this unused import 'lombok.RequiredArgsConstructor'.(ÑØúøÿÿÿÿ8Î´»”Ã0
-Q
-java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8Î´»”Ã0
+java:S3457"%String contains no format specifiers.(åÅı¼ùÿÿÿÿ

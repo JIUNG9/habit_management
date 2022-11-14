@@ -14,8 +14,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = EmailDuplicationValidator.class)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RUNTIME)
-public @interface EmailDuplicate {
-    String message() default "중복된 이메일입니다.";
+public @interface GroupNameDuplicationCheck {
+    String message() default "중복된 그룹 이름입니다.";
 
     Class<?>[] groups() default {};
 

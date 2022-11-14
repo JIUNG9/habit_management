@@ -28,7 +28,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtils;
     private final UserServiceImpl userService;
-    private final AuthenticationManager authenticationManager;
 
     private static final String jwtTokenCookieName = "jwtToken";
     private static final String signingKey = "secret";
@@ -42,7 +41,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (jwtUtils.validToken(httpServletRequest, jwtTokenCookieName, signingKey)) {
             //get email from token
             String email = jwtUtils.getEmailFromToken(httpServletRequest, jwtTokenCookieName);
-
+            logger.info("email: "+ email);
             User user =userService.findUserByEmail(email);
             //make the Authentication
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user.getEmail(),null,user.getAuthorities());

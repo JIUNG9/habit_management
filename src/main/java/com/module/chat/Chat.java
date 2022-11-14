@@ -1,5 +1,6 @@
 package com.module.chat;
 
+import com.module.room.Room;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -27,7 +28,8 @@ public class Chat {
     @Column(name ="type", columnDefinition = "text" )
     private String type;
 
-    @OneToOne( mappedBy = "chat", cascade = CascadeType.ALL, targetEntity = Room.class, orphanRemoval = true)
+    @ManyToOne
+    @JoinColumn
     private Room room;
 
 }

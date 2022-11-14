@@ -1,9 +1,7 @@
 package com.module.user;
 
 import com.module.board.Article;
-import com.module.chat.Room;
-import com.module.group.Group;
-import com.module.group.UserGroup;
+import com.module.group.UserInGroup;
 import com.module.habit.HabitStatics;
 import com.module.mail.EmailToken;
 import lombok.*;
@@ -44,7 +42,7 @@ public class User implements UserDetails
     private int warningCount;
 
     @OneToMany(mappedBy = "user")
-    private List<UserGroup> userGroup;
+    private List<UserInGroup> userGroup;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<HabitStatics> habitStaticsList;

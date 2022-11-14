@@ -51,13 +51,10 @@ public class SecurityConfig {
         http.csrf().disable().httpBasic().and().logout().disable().formLogin().disable().authorizeRequests().
                         antMatchers("/api/user/save").permitAll().
                         antMatchers("/api/logout").permitAll().
+                        antMatchers("/api/login").hasAnyRole("ADMIN", "USER").
                         antMatchers("/api/user/**/*").hasAnyRole("USER", "ADMIN").
                         antMatchers("/api/admin/**/*").hasRole("ADMIN").
-                        antMatchers("/api/group/admin/**/*").hasRole("GROUP_ADMIN").
-
-                        antMatchers("/api/login").hasAnyRole("ADMIN","USER").
-                        antMatchers("/api/logout").permitAll().
-                        anyRequest().authenticated();
+                        anyRequest().hasAnyRole("USER","ADMIN");
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterAt(jwtAuthorizationFilter,UsernamePasswordAuthenticationFilter.class);

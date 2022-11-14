@@ -1,9 +1,8 @@
 package com.module.group;
 
-import com.module.chat.Room;
-import com.module.user.Role;
-import com.module.user.User;
+import com.module.room.Room;
 import lombok.*;
+import reactor.util.annotation.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +15,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "user_group")
+@Table(name = "the_group")
 public class Group {
 
     @Id
@@ -26,18 +25,23 @@ public class Group {
     @NotNull
     private String name;
 
+    //input the type of habit
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private GroupType groupType;
     //admin should be user email
     @NotNull
     private String admin;
 
     @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<UserGroup> userGroup;
+    private List<UserInGroup> userInGroup;
 
-    @OneToOne(mappedBy = "group", cascade = CascadeType.REMOVE)
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn
     private Room room;
 
     @Override
     public String toString(){
-        return "Group name : " + this.name +"'\n" + "admin: "+ this.admin;
-    }
+    return "Group name : " + this.name +"'\n" + "admin: "+ this.admin + "" + "\n";
+}
 }
