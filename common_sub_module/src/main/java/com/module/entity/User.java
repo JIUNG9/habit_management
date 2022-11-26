@@ -21,7 +21,7 @@ public class User implements UserDetails
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Long id;
 
     @Column(length = 128, nullable = false)
     private String email;

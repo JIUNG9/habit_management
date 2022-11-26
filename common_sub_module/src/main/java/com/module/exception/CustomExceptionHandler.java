@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,6 +80,18 @@ public class CustomExceptionHandler {
     @Order(Ordered.HIGHEST_PRECEDENCE + 4)
     @ExceptionHandler(EntityExistsException.class)
     protected ResponseEntity<Object> EntityExistsException(EntityExistsException ex) {
+        return ApiError.buildApiError(
+                ApiError.
+                        builder().
+                        timestamp(LocalDateTime.now()).
+                        status(HttpStatus.UNPROCESSABLE_ENTITY).
+                        message(ex.getMessage()).
+                        build());
+    }
+
+    @Order(Ordered.HIGHEST_PRECEDENCE + 4)
+    @ExceptionHandler(SQLException.class)
+    protected ResponseEntity<Object> SqlExceptionHandler(SQLException ex) {
         return ApiError.buildApiError(
                 ApiError.
                         builder().

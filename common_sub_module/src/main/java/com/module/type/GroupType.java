@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public enum GroupType {
+
         ALCOHOL("ALCOHOL"),
         TOBACCO("TOBACCO"),
         WORKOUT("WORKOUT");

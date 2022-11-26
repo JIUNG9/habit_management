@@ -44,6 +44,12 @@ public class UserServiceImpl implements UserService {
                orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is no user by that email"));
         userRepository.delete(user);
     }
+
+    @Override
+    public Long getUserId(String email) {
+        return this.findUserByEmail(email).getId();
+    }
+
     @Override
     public boolean login(String email, String password) throws AuthenticationException {
 

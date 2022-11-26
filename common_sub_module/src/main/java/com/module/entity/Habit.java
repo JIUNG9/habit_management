@@ -53,7 +53,7 @@ public class Habit extends BaseTimeEntity {
     private String pictureLocation;//사진경로
 
     @ManyToOne
-    @JoinColumn(name = "habit_category_id")
+    @JoinColumn
     private HabitCategory habitCategory;
 
     @ManyToOne

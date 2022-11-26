@@ -17,7 +17,7 @@ public class EmailToken {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "token_id")
-    private Integer tokenid;
+    private Long tokenid;
 
     @Column(name = "confirmation_token")
     private String confirmationToken;

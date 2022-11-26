@@ -18,7 +18,7 @@ public class UserInGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Long id;
 
     //there should not be the same name in the group
     @NotNull

@@ -133,6 +133,7 @@ public class UserController {
             }
             userService.updateUser(user);
             logger.info(user.toString());
+
             return ResponseEntity.ok().body("update is succeeded");
         }
 

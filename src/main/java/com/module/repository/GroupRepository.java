@@ -27,7 +27,7 @@ public interface GroupRepository extends JpaRepository<com.module.entity.Group,I
     public Group getGroupByName(@Param("name") String name);
 
     @Query("SELECT t.room FROM Group t WHERE t.id = :id")
-    public Room findRoomByGroupId(@Param("id") Integer id);
+    public Room findRoomByGroupId(@Param("id") Long id);
 
 
 }

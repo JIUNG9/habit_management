@@ -1,11 +1,13 @@
 package com.module.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class CookieUtil {
     public static Cookie create(String name, String value, Integer maxAge, String domain) {
         Cookie cookie = new Cookie(name, value);

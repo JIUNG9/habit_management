@@ -9,8 +9,9 @@ public interface UserService extends UserDetailsService {
 
     com.module.entity.User signUp(com.module.entity.User user);
     boolean checkEmailIsDuplicated(String email);
-    void deleteUser(String email);
     boolean login(String email,String password);
+    void deleteUser(String email);
+    Long getUserId(String email);
     com.module.entity.User findUserByEmail(String email);
     com.module.entity.User updateUser(com.module.entity.User user);
     List<User> getAllUser();

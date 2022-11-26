@@ -70,12 +70,17 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
                                          Authentication authResult) throws IOException, ServletException {
 
         logger.info("the email from request: " + request.getAttribute("email"));
+        String email = (String) request.getAttribute("email");
 
-        String jwtToken = jwtUtil.generateToken((String) request.getAttribute("email"));
+        String jwtToken = jwtUtil.generateToken(email);
         logger.info("token is generated, and login succeeded");
 
         Cookie cookie = CookieUtil.create("jwtToken", jwtToken, -1, "localhost");
+
+
+        response.addHeader("id",String.valueOf(userDetailsService.getUserId(email)));
         response.addCookie(cookie);
+
 
 
     }
