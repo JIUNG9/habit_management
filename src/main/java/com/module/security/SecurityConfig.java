@@ -1,12 +1,16 @@
 package com.module.security;
 
-import com.module.filter.*;
-import com.module.group.GroupService;
-import com.module.jwt.JwtUtil;
+
+import com.module.security.filter.ExceptionHandlerFilter;
+import com.module.security.filter.GroupAuthorizationFilter;
+import com.module.security.filter.JwtAuthorizationFilter;
+import com.module.security.filter.JwtRequestFilter;
+import com.module.security.jwt.JwtUtil;
 import com.module.security.provider.GroupAdminAuthenticationProvider;
 import com.module.security.provider.GroupAnonymousAuthenticationProvider;
 import com.module.security.provider.GroupUserAuthenticationProvider;
-import com.module.user.UserService;
+import com.module.service.GroupService;
+import com.module.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,1 +1,4 @@
 rootProject.name = 'UserManagement'
+include 'common_sub_module'
+
+
