@@ -1,4 +1,4 @@
-package com.module.type;
+package com.module.dto;
 
 
 import lombok.Builder;

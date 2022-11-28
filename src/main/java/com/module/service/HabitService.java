@@ -1,7 +1,7 @@
 package com.module.service;
 
 import com.module.dto.*;
-import com.module.type.UserHabitDto;
+import com.module.dto.UserHabitDto;
 
 import java.util.List;
 

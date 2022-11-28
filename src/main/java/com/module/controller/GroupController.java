@@ -14,19 +14,15 @@ import com.module.type.Role;
 import com.module.security.dto.GroupAuthorizationInGroupDto;
 import com.module.entity.User;
 import com.module.service.UserService;
-import com.module.type.UserHabitDto;
-import com.module.utils.lambda.BindParameterSupplier;
+import com.module.dto.UserHabitDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
