@@ -23,6 +23,8 @@ public class HabitDTO {
     @NotNull
     private Long period;//단위 밀리초
 
+    private String categoryName;
+
     private Long count;
 
     private Timestamp date;

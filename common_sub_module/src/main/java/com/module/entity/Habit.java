@@ -36,17 +36,17 @@ public class Habit extends BaseTimeEntity {
     private Long habitPeriod;//단축기간 유닛(밀리초) 1일 3일 7일 30일
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "habit_date", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")//디폴트 현재시간
+    @Column(name = "habit_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")//디폴트 현재시간
     private Timestamp habitDate;//습관 시간  습관시작날짜
     // 습관 달성 실패시 habitDate를 오늘 날짜로
 
-    @Column(name = "is_checked", nullable = false, columnDefinition = "BIT(1) DEFAULT 0")//디폴트 0
+    @Column(name = "is_checked", columnDefinition = "BIT(1) DEFAULT 0")//디폴트 0
     private Boolean isChecked;//재확인하기
     //하면 true 안하면 false
     // habitDate에서 habitPeriod만큼 지난 시점에서 true면 false로 바꿔야지
     // habitDate에서 habitPeriod만큼 지난 시점에서 false면 habitDate를 현재 시간으로 수정
 
-    @Column(name = "habit_count", nullable=false, columnDefinition = "BIGINT DEFAULT 0", insertable = false)
+    @Column(name = "habit_count", columnDefinition = "BIGINT DEFAULT 0", insertable = false)
     private Long habitCount;//check 횟수
 
     @Column(name = "picture_location")

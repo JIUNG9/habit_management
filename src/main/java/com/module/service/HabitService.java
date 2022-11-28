@@ -1,8 +1,6 @@
 package com.module.service;
 
-import com.module.dto.AmountResponse;
-import com.module.dto.HabitDTO;
-import com.module.dto.PeriodResponse;
+import com.module.dto.*;
 
 import java.util.List;
 
@@ -16,6 +14,9 @@ public interface HabitService {
     PeriodResponse getTotalPeriods(long habitCategoryId);
 
     AmountResponse getTotalAmounts(long habitCategoryId);
+
+    MyPeriodResponse getMyPeriod(long habitID);
+    MyAmountResponse getMyAmount(long habitId);
 
     HabitDTO getHabitById(Long habitId);// 습관카테고리넣고 습관 아이디도 넣은거
 

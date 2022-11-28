@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<com.module.entity.User,Int
     @Query("SELECT u FROM User u WHERE u.id = :id")
     public User getUserById(@Param("id") Long id);
 
+
+
 }

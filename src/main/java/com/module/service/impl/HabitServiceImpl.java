@@ -1,10 +1,8 @@
 package com.module.service.impl;
 
-import com.module.dto.PeriodResponse;
+import com.module.dto.*;
 import com.module.entity.Habit;
 import com.module.entity.HabitCategory;
-import com.module.dto.AmountResponse;
-import com.module.dto.HabitDTO;
 import com.module.entity.User;
 import com.module.exception.ResourceNotFoundException;
 import com.module.repository.HabitCategoryRepository;
@@ -104,6 +102,32 @@ public class HabitServiceImpl implements HabitService {
         return amountResponse;
     }
 
+    @Override
+    public MyPeriodResponse getMyPeriod(long habitId) {
+        Habit habit = habitRepository.findById(habitId).orElseThrow(() -> new ResourceNotFoundException("Habit", "habit id", habitId));
+
+        MyPeriodResponse myPeriodResponse = MyPeriodResponse.builder()
+                .myTotalPeriod(habit.getTotalPeriod())
+                .memberName(habit.getUser().getName())
+                .categoryName(habit.getHabitCategory().getHabitCategoryName())
+                .build();
+
+        return myPeriodResponse;
+    }
+
+    @Override
+    public MyAmountResponse getMyAmount(long habitId) {
+        Habit habit = habitRepository.findById(habitId).orElseThrow(() -> new ResourceNotFoundException("Habit", "habit id", habitId));
+
+        MyAmountResponse myAmountResponse = MyAmountResponse.builder()
+                .myTotalAmount(habit.getTotalAmount())
+                .memberName(habit.getUser().getName())
+                .categoryName(habit.getHabitCategory().getHabitCategoryName())
+                .build();
+
+        return myAmountResponse;
+    }
+
 
     @Override
     public HabitDTO getHabitById(Long habitId) {
@@ -171,6 +195,7 @@ public class HabitServiceImpl implements HabitService {
                 .id(habit.getHabitID())
                 .name(habit.getHabitName())
                 .check(habit.getIsChecked())
+                .categoryName(habit.getHabitCategory().getHabitCategoryName())
                 .amount(habit.getHabitAmount())
                 .period(habit.getHabitPeriod())
                 .count(habit.getHabitCount())

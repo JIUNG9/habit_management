@@ -1,8 +1,6 @@
 package com.module.controller;
 
-import com.module.dto.AmountResponse;
-import com.module.dto.HabitDTO;
-import com.module.dto.PeriodResponse;
+import com.module.dto.*;
 import com.module.service.HabitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,13 +44,27 @@ public class HabitController {
     }
 
     @GetMapping("categories/{categoryId}/total_amount")
-    public AmountResponse getTotalAmounts(@PathVariable(value = "categoryId") Long habitCategoryId){
-        return habitService.getTotalAmounts(habitCategoryId);
+    public ResponseEntity<AmountResponse> getTotalAmounts(@PathVariable(value = "categoryId") Long habitCategoryId){
+        AmountResponse totalAmount = habitService.getTotalAmounts(habitCategoryId);
+        return new ResponseEntity<>(totalAmount, HttpStatus.OK);
     }
 
     @GetMapping("categories/{categoryId}/total_period")
-    public PeriodResponse getTotalPeriods(@PathVariable(value = "categoryId") Long habitCategoryId){
-        return habitService.getTotalPeriods(habitCategoryId);
+    public ResponseEntity<PeriodResponse> getTotalPeriods(@PathVariable(value = "categoryId") Long habitCategoryId){
+        PeriodResponse totalPeriod = habitService.getTotalPeriods(habitCategoryId);
+        return new ResponseEntity<>(totalPeriod, HttpStatus.OK);
+    }
+
+    @GetMapping("/habits/{habitID}/my_amount")
+    public ResponseEntity<MyAmountResponse> getMyAmount(@PathVariable(value = "habitId") long habitId){
+        MyAmountResponse myAmount = habitService.getMyAmount(habitId);
+        return new ResponseEntity<>(myAmount, HttpStatus.OK);
+    }
+
+    @GetMapping("/habits/{habitID}/my_period")
+    public ResponseEntity<MyPeriodResponse> getMyPeriod(@PathVariable(value = "habitId") long habitId){
+        MyPeriodResponse myPeriod = habitService.getMyPeriod(habitId);
+        return new ResponseEntity<>(myPeriod, HttpStatus.OK);
     }
 
     @PutMapping("/habits/{habitId}")
