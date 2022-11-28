@@ -13,14 +13,18 @@ import com.module.type.Role;
 import com.module.security.dto.GroupAuthorizationInGroupDto;
 import com.module.entity.User;
 import com.module.service.UserService;
+import com.module.utils.lambda.BindParameterSupplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -72,12 +76,14 @@ public class GroupController {
                     "sortBy: "+ sortBy);
 
 
-        List<com.module.entity.Group> groupList = groupService.sortByTypeName(groupType, page);
+        List<com.module.entity.Group> groupList = groupService.sortByType(groupType, page);
 
         if(sortBy.matches("name")) {
 
-            List<String> groupAdmin = groupService.getAdminNickNameByGroupList(groupList);
-            List<Integer> groupUserNumberResult = groupService.getUserNumberInGroup(groupList);
+            List<SortByGroupUserNumberDto> dto = groupService.sortByNameOrder(groupList,page);
+            List<String> groupAdmin = groupService.getAdminNickNameByGroupList(dto.stream().map(SortByGroupUserNumberDto::getGroup).collect(Collectors.toList()));
+
+            logger.info("sortByType list size: " + groupList.size() +"  Sort result number : "+ dto.size() + "  groupAdmin number "+ groupAdmin.size());
 
             List<GroupInfoDto> sortResultList = new ArrayList<>();
 
@@ -85,9 +91,9 @@ public class GroupController {
 
                 sortResultList.add(
                         new GroupInfoDto(
-                                groupUserNumberResult.get(i),
-                                groupList.get(i).getName(),
-                                groupList.get(i).getGroupType(),
+                                dto.get(i).getNumberOfUserInGroup().intValue(),
+                                dto.get(i).getGroup().getName(),
+                                dto.get(i).getGroup().getGroupType(),
                                 groupAdmin.get(i)));
             }
 
@@ -138,6 +144,19 @@ public class GroupController {
         return ResponseEntity.status(HttpStatus.OK).body(groupInfoDto);
     }
 
+    /*
+    *
+    * this method is returning the one user with the request group name
+    * if there isn't user with request group name wil be failed
+     */
+    @PostMapping("/user/get-my-role")
+    public ResponseEntity<Object> getMyRole(@RequestBody GroupAuthorizationInGroupDto dto,HttpServletRequest request) {
+
+      String authority =(String)request.getAttribute("authority");
+
+        return ResponseEntity.status(HttpStatus.OK).body(authority);
+    }
+
     @PostMapping("/user/get-group-members")
     public ResponseEntity<Object> getMembersInGroup(@RequestBody GroupAuthorizationInGroupDto dto) {
 
@@ -160,18 +179,30 @@ public class GroupController {
     public ResponseEntity<Object> applyGroup(@RequestBody @Valid ApplicationGroupDto applicationGroupDto,
                                              HttpServletRequest request) {
 
-
         logger.info(applicationGroupDto.toString());
 
+
+        //check the input group with adminNickName is exist first
+        String adminNickName = applicationGroupDto.getAdminNickName();
+        String aminEmail = groupService.getAdminEmailByAdminNickName(adminNickName);
+        groupService.getGroupByAdminAndGroupName(aminEmail, applicationGroupDto.getGroupName());
+
+
+        //check user status in that request group(check user is already in that group)
+        //if checkUserIsInGroup didn't throw the error, other code will be processed
         String userEmail = (String) request.getAttribute("email");
+
         User user = userService.findUserByEmail(userEmail);
+        String groupName =applicationGroupDto.getGroupName();
 
-        Optional.
-                ofNullable(
-                    groupService.applyGroup(
-                            applicationGroupDto.getAdminNickName(), applicationGroupDto.getGroupName(), user, applicationGroupDto.getUserNickName())).orElseThrow(IllegalArgumentException::new);
 
+
+
+       if(!groupService.checkUserIsAlreadyInGroup(groupName, user)){
+           groupService.applyGroup(applicationGroupDto.getAdminNickName(), applicationGroupDto.getGroupName(), user, applicationGroupDto.getUserNickName());
+       }
         return ResponseEntity.status(HttpStatus.OK).body("Sign up is succeeded, admin will approve soon");
+
     }
 
 

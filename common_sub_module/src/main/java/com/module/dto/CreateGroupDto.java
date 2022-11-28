@@ -6,6 +6,8 @@ import com.module.type.GroupType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotNull;
+
 @AllArgsConstructor
 @Getter
 public class CreateGroupDto {
@@ -15,6 +17,7 @@ public class CreateGroupDto {
     @JsonProperty("nickName")
     private String nickName;
 
+    @NotNull
     @JsonProperty("groupType")
     private GroupType groupType;
 

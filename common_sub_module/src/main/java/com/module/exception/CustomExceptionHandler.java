@@ -2,6 +2,7 @@ package com.module.exception;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -89,7 +90,22 @@ public class CustomExceptionHandler {
                         build());
     }
 
+    //ConstraintViolationException
     @Order(Ordered.HIGHEST_PRECEDENCE + 4)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    protected ResponseEntity<Object> SqlDuplicationCheck(DataIntegrityViolationException ex) {
+        return ApiError.buildApiError(
+                ApiError.
+                        builder().
+                        timestamp(LocalDateTime.now()).
+                        status(HttpStatus.UNPROCESSABLE_ENTITY).
+                        message("there is same input data in the table check the nick name or group name").
+                        build());
+    }
+
+
+
+    @Order(Ordered.HIGHEST_PRECEDENCE + 5)
     @ExceptionHandler(SQLException.class)
     protected ResponseEntity<Object> SqlExceptionHandler(SQLException ex) {
         return ApiError.buildApiError(

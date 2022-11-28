@@ -21,6 +21,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -62,6 +64,7 @@ public class GroupAuthorizationFilter extends UsernamePasswordAuthenticationFilt
     3.so set a authority in loadByUser which in groupService.
 
      */
+
     @SneakyThrows
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -119,6 +122,18 @@ public class GroupAuthorizationFilter extends UsernamePasswordAuthenticationFilt
                                          Authentication authResult) throws IOException, ServletException {
 
             logger.info(authResult);
+            authResult.setAuthenticated(true);
+
+            String authority =
+                    authResult.
+                    getAuthorities().
+                    stream().
+                    map(s->s.getAuthority()).
+                    findFirst().
+                    orElseThrow();
+
+            request.setAttribute("authority", authority);
+
             chain.doFilter(cachedBodyHttpServletRequest, response);
 
     }

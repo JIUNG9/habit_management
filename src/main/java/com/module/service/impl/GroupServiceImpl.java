@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,13 +62,19 @@ public class GroupServiceImpl implements GroupService {
     public List<SortByGroupUserNumberDto> sortByUserNumberInGroup(List<com.module.entity.Group> groupList, Integer page) {
 
         Pageable pageable = PageRequest.of(page, 5);
-        return userInGroupRepository.countUserWithGroupInGroupsByGroup(groupList, pageable);
+        return userInGroupRepository.countGroupUserAndSortByUserNumber(groupList, pageable);
 
+    }
+
+    @Override
+    public List<SortByGroupUserNumberDto> sortByNameOrder(List<Group> groupList, Integer page) {
+        Pageable pageable = PageRequest.of(page, 5,Sort.by(Sort.Direction.ASC,"group.name"));
+        return userInGroupRepository.countGroupUserAndSortByName(groupList, pageable);
     }
 
 
     @Override
-    public List<com.module.entity.Group> sortByTypeName(GroupType groupType, Integer page) {
+    public List<com.module.entity.Group> sortByType(GroupType groupType, Integer page) {
 
         Pageable pageable = PageRequest.of(page, 5);
         List<com.module.entity.Group> groupList = Optional.ofNullable(groupRepository.getByType(groupType, pageable)).orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is group by group type"));
@@ -77,7 +84,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public com.module.entity.Group getGroupByAdminAndGroupName(String adminEmail, String name) {
-        return Optional.ofNullable(groupRepository.getGroupByAdminAndName(adminEmail, name)).orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is a group by admin and group"));
+        return Optional.ofNullable(groupRepository.getGroupByAdminAndName(adminEmail, name)).orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there isn't a group by admin and group"));
     }
 
     @Override
@@ -110,6 +117,8 @@ public class GroupServiceImpl implements GroupService {
                             return userInGroup.getGroup().getAdmin();
     }
 
+
+
     @Override
     public List<Integer> getUserNumberInGroup(List<com.module.entity.Group> groups) {
         return userInGroupRepository.countUserInGroupsByGroupIn(groups);
@@ -121,7 +130,7 @@ public class GroupServiceImpl implements GroupService {
         //the getGroupByAdminAndGroupName method's first parameter which name is admin is a Email of admin
         com.module.entity.Group group = this.getGroupByAdminAndGroupName(adminEmail, groupName);
 
-        Optional.ofNullable(userInGroupRepository.findUserInGroupByNickNameAndGroup(group, nickName)).ifPresent(s -> {
+        Optional.ofNullable(userInGroupRepository.findUserInGroupByGroupAndNickName(group, nickName)).ifPresent(s -> {
             throw new EntityExistsException("there is already same nickname in group");
         });
         UserInGroup userInGroup = UserInGroup.builder().group(group).nickName(nickName).role(Role.ROLE_GROUP_PENDING).user(user).build();
@@ -130,8 +139,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public UserInGroup getUserInGroupByUserNickNameAndGroup(String userNickName, com.module.entity.Group group) {
-        return Optional.ofNullable(userInGroupRepository.findUserInGroupByNickNameAndGroup(group, userNickName)).orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is no user with that nick name in that group"));
+        return Optional.ofNullable(userInGroupRepository.findUserInGroupByGroupAndNickName(group, userNickName)).orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is no user with that nick name in that group"));
     }
+
 
     @Override
     public UserInGroup getUserInGroupByNickName(String nickName) {
@@ -153,7 +163,7 @@ public class GroupServiceImpl implements GroupService {
     public void takeOverAdmin(String groupName, String userNickName) {
 
          UserInGroup userInGroup =
-                 Optional.ofNullable(userInGroupRepository.findUserInGroupByNickNameAndGroup(this.getGroupByGroupName(groupName),userNickName))
+                 Optional.ofNullable(userInGroupRepository.findUserInGroupByGroupAndNickName(this.getGroupByGroupName(groupName),userNickName))
                             .orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new, "there is no user in that group. so can't take over the admin position"));
 
                                 userInGroup.setRole(Role.ROLE_GROUP_ADMIN);
@@ -200,9 +210,16 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean NickNameIsDuplicated(String nickName) {
-        return Optional.ofNullable(userInGroupRepository.findUserInGroupByNickName(nickName)).isPresent();
+    public boolean checkUserIsAlreadyInGroup(String groupName, User user) {
+
+        int theNumberOfUser =userInGroupRepository.findUserInGroupsByUserAndGroup(this.getGroupByGroupName(groupName), user).size();
+
+        if(theNumberOfUser>0) {
+            throw new EntityExistsException("you are already user with group name" + groupName);
+        }
+            return false;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String nickName) throws UsernameNotFoundException {

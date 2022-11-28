@@ -8,6 +8,7 @@ import com.module.utils.AppConstants;
 import com.module.service.HabitCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
