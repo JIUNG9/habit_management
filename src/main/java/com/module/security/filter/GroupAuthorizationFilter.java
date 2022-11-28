@@ -109,7 +109,7 @@ public class GroupAuthorizationFilter extends UsernamePasswordAuthenticationFilt
                     throw new BadCredentialsException("you are not authorized or passed value is not match with your login information");
                 }
         }
-        //anonymous user
+
         logger.info("user is anonymous");
         List<GrantedAuthority> anonymousUser = new ArrayList<>();
         anonymousUser.add(new SimpleGrantedAuthority("GROUP_ANONYMOUS"));
@@ -122,7 +122,6 @@ public class GroupAuthorizationFilter extends UsernamePasswordAuthenticationFilt
                                          Authentication authResult) throws IOException, ServletException {
 
             logger.info(authResult);
-            authResult.setAuthenticated(true);
 
             String authority =
                     authResult.

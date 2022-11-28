@@ -194,7 +194,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void kickUserInGroupOrWithdrawal(UserInGroup userInGroup) {
+    public void userWithdrawalUserSelf(UserInGroup userInGroup) {
         try{
             userInGroupRepository.delete(userInGroup);
         }

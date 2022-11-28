@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/user/categories")
 public class HabitCategoryController {
 
     private HabitCategoryService habitCategoryService;

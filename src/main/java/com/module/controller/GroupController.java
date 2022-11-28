@@ -160,7 +160,7 @@ public class GroupController {
     @PostMapping("/user/get-group-members")
     public ResponseEntity<Object> getMembersInGroup(@RequestBody GroupAuthorizationInGroupDto dto) {
 
-        logger.info("the group name which you want to find :" + dto.getGroupName() + " and user is " + dto.getMyNickName());
+        logger.info("the group name which you want to find :" + dto.getGroupName() + "  and user is " + dto.getMyNickName());
         List<UserInGroup> userInGroups =groupService.getMembersInGroup(dto.getGroupName());
 
         List<GroupMembersDto> groupMembersDtoList = new ArrayList<>();
@@ -240,7 +240,7 @@ public class GroupController {
         throw new IllegalArgumentException("there is already same group name");
     }
 
-    @DeleteMapping("/admin/delete-group")
+    @PostMapping("/admin/delete-group")
     public ResponseEntity<Object> deleteGroup(@RequestBody GroupAuthorizationInGroupDto dto) {
 
         try {
@@ -268,24 +268,22 @@ public class GroupController {
             return ResponseEntity.status(HttpStatus.OK).body("user warning count is increased by 1. so now is " + warn);
 
         }
-            groupService.kickUserInGroupOrWithdrawal(userInGroup);
+            groupService.userWithdrawalUserSelf(userInGroup);
             logger.info("user is in group deleted");
             return ResponseEntity.status(HttpStatus.OK).body("user is kicked");
     }
 
-    @DeleteMapping("/user/withdrawal")
-    public ResponseEntity<Object> withdrawalByMyself(@RequestBody GroupAuthorizationInGroupDto dto, @RequestParam(required = false) String userNickNameWillBeAdmin) {
+    @PostMapping("/user/withdrawal")
+    public ResponseEntity<Object> withdrawalByMyself(@RequestBody GroupAuthorizationInGroupDto dto) {
 
         UserInGroup userInGroup = groupService.getUserInGroupByUserNickNameAndGroup(dto.getMyNickName(), groupService.getGroupByGroupName(dto.getGroupName()));
         logger.info("user information in group " + userInGroup.toString());
 
         if(userInGroup.getRole().withRolePrefix().equals("ROLE_GROUP_ADMIN")){
-
-            groupService.takeOverAdmin(dto.getGroupName(), userNickNameWillBeAdmin);
-            logger.info("the user take over the position now admin is :"+ userNickNameWillBeAdmin);
+            ResponseEntity.status(HttpStatus.BAD_REQUEST).body("admin can not withdrawal himself");
         }
 
-        groupService.kickUserInGroupOrWithdrawal(userInGroup);
+        groupService.userWithdrawalUserSelf(userInGroup);
         return ResponseEntity.status(HttpStatus.OK).body("now you are is not member of "+ dto.getGroupName());
     }
 

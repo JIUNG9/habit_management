@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class UserController {
+    public class UserController {
 
     private final UserServiceImpl userService;
     private final EmailServiceImpl emailService;

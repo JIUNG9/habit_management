@@ -30,7 +30,7 @@ public interface GroupService extends UserDetailsService {
     void takeOverAdmin(String groupName, String userNickName);
     List<UserInGroup> getMembersInGroup(String groupName);
     List<String> getAdminNickNameByGroupList(List<Group> groupList);
-    void kickUserInGroupOrWithdrawal(UserInGroup userInGroup);
+    void userWithdrawalUserSelf(UserInGroup userInGroup);
     boolean groupNameIsDuplicated(String groupName);
     boolean checkUserIsAlreadyInGroup(String groupName, User user);
 }
