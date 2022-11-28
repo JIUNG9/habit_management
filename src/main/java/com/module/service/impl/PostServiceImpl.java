@@ -41,15 +41,12 @@ public class PostServiceImpl implements PostService {
 
         //retrieve habit by id
         Habit habit = habitRepository.findById(habitId).orElseThrow(() -> new ResourceNotFoundException("Habit", "habit id", habitId));
-        System.out.println("1");
         // convert DTO to entity
         Post post = mapToEntity(postDto);
-        System.out.println("2");
         //update habit to post
         post.updatePost(habit);
-        System.out.println("3");
+
         Post newPost = postRepository.save(post);
-        System.out.println("4");
         return mapToDTO(newPost);
     }
 

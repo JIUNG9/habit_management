@@ -1,11 +1,14 @@
 package com.module.service;
 
 import com.module.dto.*;
+import com.module.type.UserHabitDto;
 
 import java.util.List;
 
 public interface HabitService {
     HabitDTO createHabit(long habitCategoryId, long memberId, HabitDTO habitDto);//습관 만들기
+
+    UserHabitDto getUserHabit(String categoryType, long userId);
 
     List<HabitDTO> getHabitsByCategoryId(long habitCategoryId);//카테고리 하위 습관 다불러오기
 

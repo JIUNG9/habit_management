@@ -29,9 +29,7 @@ public class HabitCategoryServiceImpl implements HabitCategoryService {
     public HabitCategoryDTO createHabitCategory(HabitCategoryDTO habitCategoryDTO) {
         //convert DTO to Entity
         HabitCategory habitCategory = mapToEntity(habitCategoryDTO);
-        //System.out.println("habit category 결과 : "+ "(" + habitCategory.getId() + "," + habitCategory.getHabitCategoryName()+ ")");
         HabitCategory newHabitCategory = habitCategoryRepository.save(habitCategory);
-        //System.out.println("new habit category 결과 : "+ "(" + newHabitCategory.getId() + "," + newHabitCategory.getHabitCategoryName()+ ")");
         //convert Entity to DTO
         HabitCategoryDTO habitCategoryResponse = mapToDTO(newHabitCategory);
         return habitCategoryResponse;

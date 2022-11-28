@@ -4,6 +4,7 @@ package com.module.controller;
 
 import com.module.dto.*;
 import com.module.entity.UserInGroup;
+import com.module.service.HabitService;
 import com.module.type.GroupType;
 import com.module.entity.Group;
 import com.module.service.GroupService;
@@ -13,6 +14,7 @@ import com.module.type.Role;
 import com.module.security.dto.GroupAuthorizationInGroupDto;
 import com.module.entity.User;
 import com.module.service.UserService;
+import com.module.type.UserHabitDto;
 import com.module.utils.lambda.BindParameterSupplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,8 @@ public class GroupController {
 
     private final GroupService groupService;
     private final UserService userService;
+    private final HabitService habitService;
+
     private static final Logger logger = LoggerFactory
             .getLogger(GroupController.class);
 
@@ -173,9 +177,20 @@ public class GroupController {
         return ResponseEntity.status(HttpStatus.OK).body(groupMembersDtoList);
     }
 
+    @PostMapping("/user/get-my-habit")
+    public ResponseEntity<Object> getMemberHabit(@RequestBody GroupAuthorizationInGroupDto dto, HttpServletRequest request) {
 
+        UserInGroup userInGroup =groupService.getUserInGroupByUserNickNameAndGroup(dto.getMyNickName(),groupService.getGroupByGroupName(dto.getGroupName()));
+        // get user's habit in UserInGroup by groupType and user
+        String groupType = userInGroup.getGroup().getGroupType().toString();
+        User user =groupService.getUserInGroupByNickName(dto.getMyNickName()).getUser();
 
-    @PostMapping("/apply")
+        UserHabitDto userHabitDto =habitService.getUserHabit(groupType,user.getId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(userHabitDto);
+
+    }
+        @PostMapping("/apply")
     public ResponseEntity<Object> applyGroup(@RequestBody @Valid ApplicationGroupDto applicationGroupDto,
                                              HttpServletRequest request) {
 

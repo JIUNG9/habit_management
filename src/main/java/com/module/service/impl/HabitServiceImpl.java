@@ -9,11 +9,16 @@ import com.module.repository.HabitCategoryRepository;
 import com.module.repository.HabitRepository;
 import com.module.repository.UserRepository;
 import com.module.service.HabitService;
+import com.module.type.UserHabitDto;
 import com.module.utils.PrimitiveLongToInteger;
+import com.module.utils.lambda.BindParameterSupplier;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @EnableAsync
@@ -37,7 +42,7 @@ public class HabitServiceImpl implements HabitService {
         HabitCategory habitCategory = habitCategoryRepository.findById(habitCategoryID).orElseThrow(() -> new ResourceNotFoundException("HabitCategory", "habit category id", habitCategoryID));
 
         //retrieve Member entity by id
-        User user = userRepository.findById(PrimitiveLongToInteger.getInteger(memberId)).orElseThrow(() -> new ResourceNotFoundException("Member", "member Id", memberId));
+        User user = Optional.ofNullable(userRepository.getUserById(memberId)).orElseThrow(() -> new ResourceNotFoundException("Member", "member Id", memberId));
 
         //set member, habitCategory to habit entity
         habit.updateHabit(habitCategory, user);
@@ -46,6 +51,28 @@ public class HabitServiceImpl implements HabitService {
         Habit newHabit = habitRepository.save(habit);
 
         return mapToDTO(newHabit);
+    }
+
+    @Override
+    public UserHabitDto getUserHabit(String categoryType, long userId) {
+
+        HabitCategory habitCategory =
+                Optional.ofNullable(
+                        habitCategoryRepository.findByCategoryName(
+                        categoryType)).
+                        orElseThrow(() -> new ResourceNotFoundException("Habit Category", "Habit Category Id", categoryType));
+
+        User user = Optional.ofNullable(userRepository.getUserById(userId)).orElseThrow(BindParameterSupplier.bind(EntityExistsException::new, "there is no user with that user_id"));
+
+        Habit habit =
+                Optional.
+                        ofNullable(
+                                habitRepository.findByUserAndHabitCategory(user, habitCategory)).
+                                    orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new,"there is no habit with that user"));
+
+        int totalAmount = (int) (habit.getTotalAmount()/habit.getTotalPeriod());
+       return  UserHabitDto.builder().categoryName(categoryType).startTime(habit.getHabitDate()).totalAmount(totalAmount).userName(habit.getUser().getUsername()).build();
+
     }
 
     @Override

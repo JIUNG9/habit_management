@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = mapToEntity(commentDto);
 
         //retrieve member entity by id
-        User user = userRepository.findById(Math.toIntExact(memberId)).orElseThrow(()-> new ResourceNotFoundException("Member", "Member ID", memberId));
+        User user = Optional.ofNullable(userRepository.getUserById(memberId)).orElseThrow(()-> new ResourceNotFoundException("Member", "Member ID", memberId));
 
         //retrieve post entity by id
         Post post = postRepository.findById(postId).orElseThrow(()-> new ResourceNotFoundException("Post", "Post ID", postId));
