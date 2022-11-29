@@ -9,6 +9,6 @@ import java.util.List;
 @Builder
 public class AmountResponse {
     private String categoryName;//카테고리 이름
-    private List<Long> totalAmounts;
+    private List<Long> totalAmountCount;
 
 }

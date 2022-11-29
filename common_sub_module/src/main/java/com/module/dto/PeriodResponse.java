@@ -9,5 +9,5 @@ import java.util.List;
 @Builder
 public class PeriodResponse {
     private String categoryName;//카테고리 이름
-    private List<Long> totalPeriods;
+    private List<Long> totalPeriodCount;
 }
