@@ -2,6 +2,9 @@ package com.module.controller;
 
 import com.module.dto.*;
 import com.module.service.HabitService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class HabitController {
 
     private HabitService habitService;
+    private static final Logger logger = LoggerFactory
+            .getLogger(HabitController.class);
 
     public HabitController(HabitService habitService) {this.habitService = habitService;}
 
@@ -46,12 +52,14 @@ public class HabitController {
     @GetMapping("categories/{categoryId}/total_amount")
     public ResponseEntity<AmountResponse> getTotalAmounts(@PathVariable(value = "categoryId") Long habitCategoryId){
         AmountResponse totalAmount = habitService.getTotalAmounts(habitCategoryId);
+        logger.info("total amount: " + totalAmount);
         return new ResponseEntity<>(totalAmount, HttpStatus.OK);
     }
 
     @GetMapping("categories/{categoryId}/total_period")
     public ResponseEntity<PeriodResponse> getTotalPeriods(@PathVariable(value = "categoryId") Long habitCategoryId){
         PeriodResponse totalPeriod = habitService.getTotalPeriods(habitCategoryId);
+        logger.info("total period: " + totalPeriod);
         return new ResponseEntity<>(totalPeriod, HttpStatus.OK);
     }
 

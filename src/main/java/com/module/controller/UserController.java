@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
         emailService.save(confirmationToken);
         Session session = Session.getInstance(emailService.setSMTPSession(), emailService.setAuth());
 
-        emailService.sendEmail(session, user.getEmail(), "회원가입 인증메일입니다.", "http://localhost:8080/user/auth/" + confirmationToken.getConfirmationToken());
+        emailService.sendEmail(session, user.getEmail(), "회원가입 인증메일입니다.", "http://localhost:8080/api/auth/token?email-token=" + confirmationToken.getConfirmationToken());
         logger.info("이메일이 발송되었습니다.");
 
         return ResponseEntity.status(HttpStatus.CREATED).body("User is successfully saved");
@@ -65,13 +65,16 @@ import java.util.stream.Collectors;
     }
 
 
-    @GetMapping(value = "/api/user/auth/{token}")
-    public ResponseEntity<Object> userEmailVerification(@PathVariable("token") String confirmationToken) {
+    @GetMapping(value = "/api/auth/token")
+    public ResponseEntity<Object> userEmailVerification(@RequestParam("email-token") String confirmationToken) {
+
         EmailToken token = emailService.findByConfirmationToken(confirmationToken);
-        com.module.entity.User user = userService.findUserByEmail(token.getUser().getEmail());
-        user.setRole(Role.ROLE_USER);
-        userService.updateUser(user);
-        return ApiError.buildApiError(ApiError.builder().timestamp(LocalDateTime.now()).message("Email verification is succeeded").status(HttpStatus.OK).build());
+        User userFromToken = token.getUser();
+
+            userFromToken.setRole(Role.ROLE_USER);
+            userService.updateUser(userFromToken);
+            return ResponseEntity.status(HttpStatus.OK).body("email verification succeeded");
+
     }
 
 

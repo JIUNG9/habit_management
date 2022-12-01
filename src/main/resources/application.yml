@@ -9,9 +9,9 @@ spring:
     ansi:
       enabled: always
   datasource:
-    url: jdbc:mysql://localhost:3306/habit
+    url: jdbc:mysql://localhost:3306/habit_management
     username: root
-    password: 1234
+    password: k1651227
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

@@ -4,6 +4,7 @@ import com.module.config.MailConfig;
 import com.module.entity.EmailToken;
 import com.module.repository.EmailRepository;
 import com.module.service.EmailService;
+import com.module.utils.lambda.BindParameterSupplier;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
@@ -62,12 +64,20 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public com.module.entity.EmailToken save(com.module.entity.EmailToken emailToken) {
-        return Optional.ofNullable(emailRepo.save(emailToken)).orElseThrow(IllegalArgumentException::new);
+
+        return Optional.
+                    ofNullable(
+                        emailRepo.save(emailToken)).
+                            orElseThrow(BindParameterSupplier.bind(IllegalArgumentException::new, "can not save the email token"));
     }
 
 
     public EmailToken findByConfirmationToken(String confirmationToken){
-        return Optional.ofNullable(emailRepo.findByConfirmationToken(confirmationToken)).orElseThrow(IllegalArgumentException::new);
+
+        return Optional.
+                    ofNullable(
+                        emailRepo.findByConfirmationToken(confirmationToken)).
+                            orElseThrow(BindParameterSupplier.bind(EntityNotFoundException::new,"there is no email token with that user input"));
     }
 
     @Override

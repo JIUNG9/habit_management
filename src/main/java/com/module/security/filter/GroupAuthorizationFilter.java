@@ -39,9 +39,9 @@ import java.util.List;
 public class GroupAuthorizationFilter extends UsernamePasswordAuthenticationFilter{
 
     private GroupService groupService;
+    private CachedBodyHttpServletRequest cachedBodyHttpServletRequest;
     private final AuthenticationManager authenticationManager;
     private final UserService userServiceImpl;
-    private CachedBodyHttpServletRequest cachedBodyHttpServletRequest;
 
     public GroupAuthorizationFilter(GroupService groupService, AuthenticationManager authenticationManager, UserService userServiceImpl){
         this.groupService=groupService;

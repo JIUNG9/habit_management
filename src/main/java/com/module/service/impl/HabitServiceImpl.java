@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -226,43 +228,50 @@ public class HabitServiceImpl implements HabitService {
         long count1 = 0; long count2 = 0; long count3 = 0; long count4 = 0;
         long count5 = 0; long count6 = 0; long count7 = 0; long count8 = 0;
         long count9 = 0; long count10 = 0; long count11= 0; long count12 = 0;
+        long count13 = 0;
 
-        for(long totalPeriod : totalPeriods){
+
+        List<Long> dividedBy2629700 = totalPeriods.stream().map(t->t/2629700).collect(Collectors.toList());
+
+        for(long totalPeriod : dividedBy2629700){
             if(totalPeriod>=0 && totalPeriod < 1){
-                count1++;
+               count1 = count1++;
             }
             else if(totalPeriod>=1 && totalPeriod < 2){
-                count2++;
+                count2 = count2++;
             }
             else if(totalPeriod>=2 && totalPeriod < 3){
-                count3++;
+                count3 = count3++;
             }
             else if(totalPeriod>=3 && totalPeriod < 4){
-                count4++;
+                count4 = count4++;
             }
             else if(totalPeriod>=4 && totalPeriod < 5){
-                count5++;
+                count5 = count5++;
             }
             else if(totalPeriod>=5 && totalPeriod < 6){
-                count6++;
+                count6 = count6++;
             }
             else if(totalPeriod>=6 && totalPeriod < 7){
-                count7++;
+                count7 = count7++;
             }
             else if(totalPeriod>=7 && totalPeriod < 8){
-                count8++;
+                count8 = count8++;
             }
             else if(totalPeriod>=8 && totalPeriod < 9){
-                count9++;
+               count9 = count9++;
             }
             else if(totalPeriod>=9 && totalPeriod < 10){
-                count10++;
+                count10 = count10++;
             }
             else if(totalPeriod>=10 && totalPeriod < 11){
-                count11++;
+                count11 = count11++;
             }
             else if(totalPeriod>=11 && totalPeriod < 12){
-                count12++;
+                count12 +=1;
+            }
+            else if (totalPeriod >= 13) {
+                count13 +=1;
             }
         }
 
@@ -278,45 +287,44 @@ public class HabitServiceImpl implements HabitService {
         long count5 = 0; long count6 = 0; long count7 = 0; long count8 = 0;
         long count9 = 0; long count10 = 0; long count11= 0; long count12 = 0;
         long max = Collections.max(totalAmounts);
-        long gap = max/10;
+        double gap = max/10;
 
         for(long totalPeriod : totalAmounts){
             if(totalPeriod>=0 && totalPeriod < gap){
-                count1++;
+                count1 = count1++;
             }
             else if(totalPeriod>=gap && totalPeriod < 2*gap){
-                count2++;
+                count2 =count2++;
             }
             else if(totalPeriod>=2*gap && totalPeriod < 3*gap){
-                count3++;
+                count3 = count3++;
             }
             else if(totalPeriod>=3*gap && totalPeriod < 4*gap){
-                count4++;
+                count4 = count4++;
             }
             else if(totalPeriod>=4*gap && totalPeriod < 5*gap){
-                count5++;
+                count5 = count5++;
             }
             else if(totalPeriod>=5*gap && totalPeriod < 6*gap){
-                count6++;
+                count6 = count6++;
             }
             else if(totalPeriod>=6*gap && totalPeriod < 7*gap){
-                count7++;
+               count7 = count7++;
             }
             else if(totalPeriod>=7*gap && totalPeriod < 8*gap){
-                count8++;
+                count8 =count8++;
             }
             else if(totalPeriod>=8*gap && totalPeriod < 9*gap){
-                count9++;
+                count9 = count9++;
             }
             else if(totalPeriod>=9*gap && totalPeriod < 10*gap){
-                count10++;
+               count10 += 1;
+
+            } else if (totalPeriod >= 10 * gap && totalPeriod < 11 * gap) {
+                count11 +=1;
             }
-            else if(totalPeriod>=10*gap && totalPeriod < 11*gap){
-                count11++;
-            }
-            else if(totalPeriod>=11*gap && totalPeriod < 12*gap){
-                count12++;
-            }
+
+
         }
 
         List<Long> totalAmountCount = Arrays.asList(count1, count2, count3, count4,
