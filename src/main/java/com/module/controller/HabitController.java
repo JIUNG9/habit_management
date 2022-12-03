@@ -1,6 +1,7 @@
 package com.module.controller;
 
 import com.module.dto.*;
+import com.module.entity.Habit;
 import com.module.service.HabitService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;

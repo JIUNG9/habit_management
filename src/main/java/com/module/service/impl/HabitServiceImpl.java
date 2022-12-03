@@ -279,7 +279,7 @@ public class HabitServiceImpl implements HabitService {
     public List<Long> getTotalAmountCount(List<Long> totalAmounts){
         long count1 = 0; long count2 = 0; long count3 = 0; long count4 = 0;
         long count5 = 0; long count6 = 0; long count7 = 0; long count8 = 0;
-        long count9 = 0; long count10 = 0; long count11= 0;
+        long count9 = 0; long count10 = 0;
         long max = Collections.max(totalAmounts);
         double gap = max/10;
 
@@ -311,17 +311,14 @@ public class HabitServiceImpl implements HabitService {
             else if(totalAmount>=8*gap && totalAmount < 9*gap){
                 count9 += 1;
             }
-            else if(totalAmount>=9*gap && totalAmount < 10*gap){
+            else if(totalAmount>=9*gap && totalAmount <= 10*gap){
                 count10 += 1;
-            }
-            else if(totalAmount>=10*gap && totalAmount < 11*gap) {
-                count11 += 1;
             }
         }
 
         List<Long> totalAmountCount = Arrays.asList(count1, count2, count3, count4,
                 count5, count6, count7, count8,
-                count9, count10, count11);
+                count9, count10);
 
         System.out.println(totalAmountCount.toString());
         return totalAmountCount;
