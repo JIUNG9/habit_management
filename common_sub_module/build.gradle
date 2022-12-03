@@ -4,9 +4,6 @@ plugins {
     id 'org.springframework.boot' version '2.7.2'
 }
 
-bootJar.enabled = false
-jar.enabled = true
-
 group 'com.example'
 version '0.0.1-SNAPSHOT'
 
