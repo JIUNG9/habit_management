@@ -178,7 +178,7 @@ import java.util.stream.Collectors;
             com.module.entity.User user = userService.findUserByEmail(email);
             logger.info("user : " + user.toString());
 
-            UserDetailDto userDetailDto = new UserDetailDto(user.getEmail(), user.getName());
+            UserDetailDto userDetailDto = new UserDetailDto(user.getEmail(), user.getName(),user.getRole());
 
             return ResponseEntity.status(HttpStatus.OK).body(userDetailDto);
         }
@@ -192,7 +192,7 @@ import java.util.stream.Collectors;
         List<UserDetailDto> userDetailDtoList =new ArrayList<>();
 
          users.stream().
-                 map(s-> userDetailDtoList.add(new UserDetailDto(s.getEmail(), s.getName()))).
+                 map(s-> userDetailDtoList.add(new UserDetailDto(s.getEmail(), s.getName(),s.getRole()))).
                  collect(Collectors.toList());
 
         return ResponseEntity.status(HttpStatus.OK).body(userDetailDtoList);
