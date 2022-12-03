@@ -64,13 +64,13 @@ public class HabitController {
         return new ResponseEntity<>(totalPeriod, HttpStatus.OK);
     }
 
-    @GetMapping("/habits/{habitID}/my_amount")
+    @GetMapping("/habits/{habitId}/my_amount")
     public ResponseEntity<MyAmountResponse> getMyAmount(@PathVariable(value = "habitId") long habitId){
         MyAmountResponse myAmount = habitService.getMyAmount(habitId);
         return new ResponseEntity<>(myAmount, HttpStatus.OK);
     }
 
-    @GetMapping("/habits/{habitID}/my_period")
+    @GetMapping("/habits/{habitId}/my_period")
     public ResponseEntity<MyPeriodResponse> getMyPeriod(@PathVariable(value = "habitId") long habitId){
         MyPeriodResponse myPeriod = habitService.getMyPeriod(habitId);
         return new ResponseEntity<>(myPeriod, HttpStatus.OK);
