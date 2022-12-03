@@ -78,6 +78,34 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public PostResponse getAllPostsByCategoryId(long categoryId, int pageNo, int pageSize, String sortBy, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+
+        //create Pageable instance
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        List<Habit> habits = habitRepository.findByHabitCategoryId(categoryId);
+
+        Page<Post> posts = postRepository.findAllByHabitIn(habits, pageable);
+
+        List<Post> listOfPosts = posts.getContent();
+
+        List<PostDto> content = listOfPosts.stream().map(post -> mapToDTO(post)).collect(Collectors.toList());
+
+        PostResponse postResponse = PostResponse.builder()
+                .content(content)
+                .pageNo(posts.getNumber())
+                .pageSize(posts.getSize())
+                .totalElements(posts.getTotalElements())
+                .totalPages(posts.getTotalPages())
+                .last(posts.isLast())
+                .build();
+
+        return postResponse;
+    }
+
+    @Override
     public PostDto getPostById(long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
 

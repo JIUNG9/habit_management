@@ -9,11 +9,15 @@ public interface PostService {
 
     PostResponse getAllPosts(int pageNo, int pageSize, String sortBy, String sortDir);
 
+    PostResponse getAllPostsByCategoryId(long categoryId, int pageNo, int pageSize, String sortBy, String sortDir);
+
     PostDto getPostById(long id);
 
     PostDto updatePost(PostDto postDto, long id);
 
     void deletePostById(long id);
+
+
 
 
 }

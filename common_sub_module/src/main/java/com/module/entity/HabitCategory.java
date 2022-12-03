@@ -27,7 +27,7 @@ public class HabitCategory extends BaseTimeEntity {
     private String habitCategoryName;
 
     @OneToMany(mappedBy = "habitCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Habit> habits = new LinkedList<>();
+    private List<Habit> habits;
 
     public void updateHabitCategory(HabitCategoryDTO habitCategoryDTO){
         this.habitCategoryName = habitCategoryDTO.getName();

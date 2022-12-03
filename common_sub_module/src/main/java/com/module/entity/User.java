@@ -40,10 +40,10 @@ public class User implements UserDetails
     private int warningCount;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<UserInGroup> userGroup = new ArrayList<>();
+    private List<UserInGroup> userGroup;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Habit> habitList = new LinkedList<>();
+    private List<Habit> habitList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> commentList;
