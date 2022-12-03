@@ -230,7 +230,7 @@ public class HabitServiceImpl implements HabitService {
         long count5 = 0; long count6 = 0; long count7 = 0; long count8 = 0;
         long count9 = 0; long count10 = 0; long count11= 0; long count12 = 0;
         List<Long> totalPeriodsMonth = totalPeriods.stream().map(i -> TimeUnit.SECONDS.toDays(i)/30).collect(Collectors.toList());
-        for(long totalPeriod : totalPeriods){
+        for(long totalPeriod : totalPeriodsMonth){
             if(totalPeriod>=0 && totalPeriod < 1){
                 count1 += 1;
             }
