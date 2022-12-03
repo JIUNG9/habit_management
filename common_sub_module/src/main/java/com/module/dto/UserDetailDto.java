@@ -1,5 +1,6 @@
 package com.module.dto;
 
+import com.module.type.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,4 +10,5 @@ public class UserDetailDto {
 
     String email;
     String name;
+    Role role;
 }
