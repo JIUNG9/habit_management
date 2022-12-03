@@ -131,6 +131,7 @@ public class HabitServiceImpl implements HabitService {
         AmountResponse amountResponse = AmountResponse.builder()
                 .categoryName(categoryName)
                 .totalAmountCount(totalAmountCount)
+                .max(Collections.max(totalAmounts))
                 .build();
 
         return amountResponse;

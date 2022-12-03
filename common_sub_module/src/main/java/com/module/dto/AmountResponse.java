@@ -10,5 +10,6 @@ import java.util.List;
 public class AmountResponse {
     private String categoryName;//카테고리 이름
     private List<Long> totalAmountCount;
+    private long max;
 
 }
