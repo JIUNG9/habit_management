@@ -43,10 +43,10 @@ public class User implements UserDetails
     private List<UserInGroup> userGroup;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Habit> habitList = new ArrayList<>();
+    private List<Habit> habitList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Comment> commentList = new LinkedList<>();
+    private List<Comment> commentList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<EmailToken> emailTokenList;
