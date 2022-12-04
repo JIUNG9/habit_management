@@ -40,7 +40,7 @@ public class Post extends BaseTimeEntity {
     private long viewCount;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Comment> comments;
+    private Set<Comment> comments = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "habit_id")
