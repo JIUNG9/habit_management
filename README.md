@@ -7,7 +7,7 @@
  또한 습관에 대한 전체 통계를 통하여 습관을 더 효율적으로 달성 할 수 있도록 했습니다. 현재는 AWS에 배포되지 않은 상태이며 향후 Test code와 부재된 채팅기능을 Kafka를 통하여 구현할 예정입니다. 해당 메인 브랜치는 백엔드를 올려놓은 브랜치입니다.
 첨부된 링크는 프로젝트 Notion입니다. https://plucky-jumbo-d38.notion.site/1a6b3a5fc1dc49b6b8b8ff6be54981bd?v=33266c465c064f0ebc549c47eb34ff8e
 ## Installation
-### Redis
+### Redis(Mac brew)
 
 ```
 brew install redis
