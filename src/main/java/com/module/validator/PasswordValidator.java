@@ -5,7 +5,6 @@ import javax.validation.ConstraintValidatorContext;
 import java.text.MessageFormat;
 
 
-
 public class PasswordValidator implements ConstraintValidator<Password,String> {
     private static final int MIN_SIZE = 8;
     private static final int MAX_SIZE = 50;

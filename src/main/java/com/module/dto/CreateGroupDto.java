@@ -2,7 +2,6 @@ package com.module.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.module.type.GroupType;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -4,8 +4,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-import java.util.Optional;
-
 public enum RedisUtil {
     INSTANCE;
 

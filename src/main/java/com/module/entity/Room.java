@@ -1,7 +1,5 @@
 package com.module.entity;
 
-import com.module.entity.Chat;
-import com.module.entity.Group;
 import lombok.*;
 
 import javax.persistence.*;
