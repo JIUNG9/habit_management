@@ -1,6 +1,7 @@
 # habit management app
 ##### 나쁜 습관을 교정하고 좋은 습관을 유지하기 위해서 해당 어플리케이션을 제작했습니다
 ![image](https://user-images.githubusercontent.com/60885635/225555714-ff3e1070-fba0-4eca-b2d1-01b1fcfc2cd0.png)
+![image](https://user-images.githubusercontent.com/60885635/225555872-cca6ad9f-8d6d-496c-a29f-f016fee40cea.png)
 
 ## Description
 
