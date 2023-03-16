@@ -7,8 +7,7 @@
 
  Spring boot, Spring security, Redis를 사용하였습니다.
  RESTful architecture를 위하여 JWT 토큰을 사용했고, 이를 Redis에 저장하여 인증을 합니다. 또한 회원의 권한과 그룹의 권한이 따로 설정되어있어, 한 그룹의 관리자이더라도 다른 그룹의 관리자가 아니면 접근 권한을 얻지 못합니다.
- 또한 습관에 대한 전체 통계를 통하여 습관을 더 효율적으로 달성 할 수 있도록 했습니다. 현재는 AWS에 배포되지 않은 상태이며 향후 Test code와 부재된 채팅
-첨부된 링크는 프로젝트 기능명세를 한 Notion입니다. https://plucky-jumbo-d38.notion.site/1a6b3a5fc1dc49b6b8b8ff6be54981bd?v=33266c465c064f0ebc549c47eb34ff8e](https://quilt-tarragon-566.notion.site/637a331c8d7f40d9a6dc58935b91b69d?v=7efa3aa813544e7aa2757efdcdf127cc)
+ 또한 습관에 대한 전체 통계를 통하여 습관을 더 효율적으로 달성 할 수 있도록 했습니다. 현재는 AWS에 배포되지 않은 상태이며 향후 Test code와 부재된 채팅 기능을 추가 할 예정입니다. 첨부된 링크는 프로젝트 기능명세를 한 Notion입니다. https://plucky-jumbo-d38.notion.site/1a6b3a5fc1dc49b6b8b8ff6be54981bd?v=33266c465c064f0ebc549c47eb34ff8e](https://quilt-tarragon-566.notion.site/637a331c8d7f40d9a6dc58935b91b69d?v=7efa3aa813544e7aa2757efdcdf127cc)
 ## Installation
 ### Redis(Mac brew)
 
